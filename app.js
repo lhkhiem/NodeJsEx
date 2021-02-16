@@ -1,9 +1,11 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const logger = require('morgan')
 const mongoClient = require('mongoose')
 
+
 //setup connect mongoDb by mongoose
-const mongoUri = 'mongodb+srv://lhkhiem:lhkhiem1990@cluster0.fezxg.mongodb.net/NodejsEx?retryWrites=true&w=majority"'
+const mongoUri = 'mongodb+srv://lhkhiem:lhkhiem1990@cluster0.fezxg.mongodb.net/NodejsEx?retryWrites=true&w=majority'
 mongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('👍 Connected to MongoDB!')
@@ -18,6 +20,7 @@ const userRoute = require('./routes/user')
 
 //Middlewares
 app.use(logger('dev'))
+app.use(bodyParser.json())
 //Routes
 
 app.use('/users', userRoute)//goi router user
@@ -34,8 +37,8 @@ app.use((req, res, next) => {
     next(err)
 })
 //Error handler function
-app.use(() => {
-    const error = app.get('env') === 'development' ? err : {}
+app.use((err, req, res, next) => {
+    const error = app.get('env') === 'development' ? err : {hhh}
     const status = err.status || 500
 
     //response to client 
