@@ -4,5 +4,11 @@
   "main": "index.js",
   "repository": "https://github.com/lhkhiem/NodejsEx.git",
   "author": "lhkhiem <hoangkhiemkg2018@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0" //dung de tao console log tren terminal chi tiet
+  }
 }
