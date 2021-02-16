@@ -1,15 +1,28 @@
 const express = require('express')
-const app = express()
 const logger = require('morgan')
-const router = require('./routes/user')
-const userRoute=require('./routes/user')
+const mongoClient = require('mongoose')
+
+//setup connect mongoDb by mongoose
+const mongoUri = 'mongodb+srv://lhkhiem:lhkhiem1990@cluster0.fezxg.mongodb.net/NodejsEx?retryWrites=true&w=majority"'
+mongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('👍 Connected to MongoDB!')
+    })
+    .catch(() => {
+        console.error(`❌ Connect database is failed with error ${error}`)
+    })
+
+const app = express()
+
+const userRoute = require('./routes/user')
+
 //Middlewares
 app.use(logger('dev'))
 //Routes
 
-app.use('/users',userRoute)//goi router user
+app.use('/users', userRoute)//goi router user
 
-app.get('/', (req,res,next)=>{//route trang chu
+app.get('/', (req, res, next) => {//route trang chu
     return res.status(200).json({
         message: 'Server is Ok good!'
     })
