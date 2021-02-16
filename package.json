@@ -1,0 +1,8 @@
+{
+  "name": "NodejsEx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/lhkhiem/NodejsEx.git",
+  "author": "lhkhiem <hoangkhiemkg2018@gmail.com>",
+  "license": "MIT"
+}
