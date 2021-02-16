@@ -9,6 +9,5 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "morgan": "^1.10.0" //dung de tao console log tren terminal chi tiet
-  }
+    "morgan": "^1.10.0" 
 }
