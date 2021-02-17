@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const Desk = require('../models/Desk')
+const Deck = require('../models/Deck')
 
 const index = async (req, res, next) => {
     const users = await User.find({})
@@ -14,34 +14,36 @@ const newUser = async (req, res, next) => {
     return res.status(201).json({ user: newUser })
 
 }
-const newUserDesks = async (req, res, next) => {
+const newUserDecks = async (req, res, next) => {
     const { id } = req.params
     //Create new desk form body
-    const newDeck = new Desk(req.body)
-
+    const newDeck = new Deck(req.body)
+    console.log({ desk: newDeck })
     const user = await User.findById(id)
 
     //Assign user as a desk's owner
     newDeck.owner = user
 
-    await newDesks.save()
+    await newDeck.save()
 
-    //add desk to user's desks array 'desks'
-    user.desk.push(newsDesk._id)
+    //add desk to user's desks array 'decks'
+    user.decks.push(newDeck._id)
 
     //save to user
     await user.save()
 
-    return res.status(201).json({ desk: newDesks })
+    return res.status(201).json({ desk: newDeck })
 }
 const getById = async (req, res, next) => {
     const { id } = req.params
     const user = await User.findById(id)
     return res.status(200).json({ user })
 }
-const getUserDesks = async (req, res, next) => {
-
-    return
+const getUserDecks = async (req, res, next) => {
+    const { id } = req.params
+    //Get user
+    const user = await User.findById(id).populate('decks')
+    return res.status(200).json({decks:user.decks})
 }
 const replaceUser = async (req, res, next) => {
     const { id } = req.params
@@ -61,6 +63,6 @@ module.exports = {
     getById,
     replaceUser,
     updateUser,
-    getUserDesks,
-    newUserDesks
+    getUserDecks,
+    newUserDecks
 }

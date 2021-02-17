@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const DeskSchema = new Schema({
+const DeckSchema = new Schema({
     name: {
         type: String
     },
@@ -17,5 +17,5 @@ const DeskSchema = new Schema({
         ref: 'User'
     }
 })
-const Desk = mongoose.model('Desk', DeskSchema)
-module.exports = Desk
+const Deck = mongoose.model('Deck', DeckSchema)
+module.exports = Deck

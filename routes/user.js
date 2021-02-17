@@ -13,6 +13,6 @@ router.route('/:id')
     .patch(UserController.updateUser)
 
 router.route('/:id/decks')
-    .get(UserController.getUserDesks)
-    .post(UserController.newUserDesks)
+    .get(UserController.getUserDecks)
+    .post(UserController.newUserDecks)
 module.exports = router
