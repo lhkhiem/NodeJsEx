@@ -30,24 +30,25 @@ app.get('/', (req, res, next) => {//route trang chu
         message: 'Server is Ok good!'
     })
 })
-//Catch 404 -- not found
+//Catch 404 -- not found (neu khong co route nao dc tim thay thi se tao loi 404 va next cho thang error handle xu ly)
 app.use((req, res, next) => {
     const err = new Error('Not Found')
     err.status = 404
     next(err)
 })
-//Error handler function
+//Error handler function (la ham hung cac error phat sinh thong qua next)
 app.use((err, req, res, next) => {
     const error = app.get('env') === 'development' ? err : {hhh}
     const status = err.status || 500
 
     //response to client 
-    return
+    return(
     res.status(status).json({
         error: {
             message: error.message
         }
     })
+    )
 })
 //Start the server
 

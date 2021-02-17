@@ -3,3 +3,18 @@
 -morgan: dung de hien thi console log tren moi truong dev chi tiet hon
 -nodemon: dung de tu dong chay lai node moi lam save
 -body-parser: dung de cho server thay duoc noi dung body tu client gui ve server, neu khong dung se bi undefined
+# Cach viet code dung
+-ket thu cau lenh khong can dau ';'
+-return: 
+    +neu cung 1 dong thi khong can dau ()
+        vd: return res.status(200).json({
+                message: 'Server is Ok good!'
+            }) 
+    + neu tach code xuong dong thi can dau ()
+        vd: return 
+            (
+                res.status(200).json({
+                    message: 'Server is Ok good!'
+                    })
+            )
+

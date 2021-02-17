@@ -5,7 +5,7 @@ const index = async (req, res, next) => {
         const users = await User.find({})
         throw new Error('Random error')
         return res.status(200).json({ users })
-    } catch (error) { next(error) }
+    } catch (err) { next(err) }
 }
 //
 const newUser = (req, res, next) => {
