@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     email: {
         type: String
     },
-    decks[{
+    decks:[{
         type: Schema.Types.ObjectId,
         ref: 'Deck'
     }]
