@@ -1,22 +1,33 @@
 const User = require('../models/User')
 
 const index = async (req, res, next) => {
-    try {
-        const users = await User.find({})
-        throw new Error('Random error')
-        return res.status(200).json({ users })
-    } catch (err) { next(err) }
+    const users = await User.find({})
+    //throw new Error('Random error')//test error handle fuction bat loi
+    return res.status(200).json({ users })
 }
-//
-const newUser = (req, res, next) => {
+
+const newUser = async (req, res, next) => {
+    //throw new Error('Random error')//test error handle fuction bat loi
     const newUser = new User(req.body)
-    console.log('user body content:', newUser)
-    newUser.save()
-        .then(user => {
-            res.status(201).json({
-                '1 row affeted': user
-            })
-        })
-        .catch(err => next(err))
+    await newUser.save()
+    return res.status(201).json({ user: newUser })
+
 }
-module.exports = { index, newUser }
+const getById = async (req, res, next) => {
+    const { id } = req.params
+    const user = await User.findById(id)
+    return res.status(200).json({ user })
+}
+const replaceUser =async (req, res, next) => {
+    const { id } = req.params
+    const newUser = req.body
+    const result =await User.findByIdAndUpdate(id, newUser)
+    return res.status(200).json({ success: true })
+}
+const updateUser =async (req, res, next) => {
+    const { id } = req.params
+    const newUser = req.body
+    const result =await User.findByIdAndUpdate(id, newUser)
+    return res.status(200).json({ success: true })
+}
+module.exports = { index, newUser, getById, replaceUser, updateUser }
