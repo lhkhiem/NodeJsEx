@@ -4,6 +4,8 @@
 -nodemon: dung de tu dong chay lai node moi lam save
 -body-parser: dung de cho server thay duoc noi dung body tu client gui ve server, neu khong dung se bi undefined
 -express-promise-router: lang nghe loi next sang ham xu ly loi(khong can try/catch)
+-@hapi/joi: dung der validate du lieu dau vao
+
 # Cach viet code dung
 -ket thu cau lenh khong can dau ';'
 -return: 
