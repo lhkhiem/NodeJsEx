@@ -1,6 +1,8 @@
 const User = require('../models/User')
 const Deck = require('../models/Deck')
 
+const Joi=require('@hapi/joi')
+
 const index = async (req, res, next) => {
     const users = await User.find({})
     //throw new Error('Random error')//test error handle fuction bat loi
@@ -35,7 +37,7 @@ const newUserDecks = async (req, res, next) => {
     return res.status(201).json({ desk: newDeck })
 }
 const getById = async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.value.params
     const user = await User.findById(id)
     return res.status(200).json({ user })
 }
