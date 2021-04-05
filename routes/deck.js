@@ -7,7 +7,12 @@ const {validateBody, validateParam, schemas}=require('../helpers/routerHelpers')
 
 router.route('/')
 .get(DeckController.index)
-.post(DeckController.newDeck)
+.post(validateBody(schemas.newDeckSchema),DeckController.newDeck)
     
+router.route('/:deckId')
+.get(validateParam(schemas.idSchema,'deckId'), DeckController.getDeck)
+.put(validateParam(schemas.idSchema,'deckId'), validateBody(schemas.newDeckSchema),DeckController.replaceDeck)
+.patch(validateParam(schemas.idSchema,'deckId'), validateBody(schemas.deckOptionSchema),DeckController.replaceDeck)
+.delete(validateParam(schemas.idSchema,'deckId'),DeckController.deleteDeck)
     
 module.exports = router

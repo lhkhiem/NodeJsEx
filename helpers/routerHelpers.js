@@ -42,6 +42,16 @@ const schemas = {
         name:Joi.string().min(6).required(),
         description: Joi.string().min(10).required()
     }),
+    newDeckSchema:Joi.object().keys({
+        name:Joi.string().min(6).required(),
+        description: Joi.string().min(10).required(),
+        owner:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    deckOptionSchema:Joi.object().keys({
+        name:Joi.string().min(6),
+        description: Joi.string().min(10),
+        owner:Joi.string().regex(/^[0-9a-fA-F]{24}$/)
+    }),
     idSchema: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     }),
