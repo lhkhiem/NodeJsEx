@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const secureApp=require('helmet')
 const logger = require('morgan')
 const mongoClient = require('mongoose')
 
@@ -15,9 +16,11 @@ mongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true 
     })
 
 const app = express()
+app.use(secureApp())
 
 const userRoute = require('./routes/user')
 const deckRoute = require('./routes/deck')
+const { required } = require('@hapi/joi')
 
 //Middlewares
 app.use(logger('dev'))
