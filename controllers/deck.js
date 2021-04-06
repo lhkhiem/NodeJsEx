@@ -31,14 +31,19 @@ const getDeck = async (req, res, next) => {
 const replaceDeck = async (req, res, next) => {
     const { deckId } = req.value.params
     const newDeck = req.value.body
-    const currentDeck = await Deck.findById(deckId)
+    //get old deck 
+    const oldDeck = await Deck.findById(deckId)
+    //change decks
     const result = await Deck.findByIdAndUpdate(deckId, newDeck)
     //check if put user, reme deck in user's model
 
-    const newUser = await User.findById(currentDeck.owner)
-    if (newDeck.owner != currentDeck.owner) {
-        const index = newUser.decks.indexOf(deckId)
-        newUser.decks.splice(index, 1)
+
+    //get old owner from deck
+    const oldOwner = oldDeck.owner
+    
+    if (newDeck.owner != oldOwner) {
+        const newUser = await User.findById(oldOwner)
+        newUser.decks.pull(oldDeck)
         newUser.save()
 
         //add deck into new owner
@@ -53,11 +58,45 @@ const replaceDeck = async (req, res, next) => {
 const updateDeck = async (req, res, next) => {
     const { deckId } = req.value.params
     const newDeck = req.value.body
+    //get old deck 
+    const oldDeck = await Deck.findById(deckId)
+    //change decks
     const result = await Deck.findByIdAndUpdate(deckId, newDeck)
+    //check if put user, reme deck in user's model
+
+
+    //get old owner from deck
+    const oldOwner = oldDeck.owner
+    
+    if (newDeck.owner != oldOwner) {
+        const newUser = await User.findById(oldOwner)
+        newUser.decks.pull(oldDeck)
+        newUser.save()
+
+        //add deck into new owner
+        const newOwner = await User.findById(req.value.body.owner)
+        newOwner.decks.push(deckId)
+        newOwner.save()
+    }
+
+
     return res.status(200).json({ success: true })
 }
 const deleteDeck = async (req, res, next) => {
+    const { deckId } = req.value.params
 
+    //get 1 deck
+    const deck = await Deck.findById(deckId)
+    const ownerId = deck.owner
+    //get 1 owner
+    const owner = await User.findById(ownerId)
+    //Remove the deck
+    await deck.remove()
+    //remove deck form owner's decks list
+    console.log('deck da xoa', deck)
+    owner.decks.pull(deck)
+    await owner.save()
+    return res.status(200).json(deck)
 }
 module.exports = {
     index,
