@@ -17,6 +17,7 @@ mongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true 
 const app = express()
 
 const userRoute = require('./routes/user')
+const deckRoute = require('./routes/deck')
 
 //Middlewares
 app.use(logger('dev'))
@@ -24,6 +25,7 @@ app.use(bodyParser.json())
 //Routes
 
 app.use('/users', userRoute)//goi router user
+app.use('/decks', deckRoute)//goi router deck
 
 app.get('/', (req, res, next) => {//route trang chu
     return res.status(200).json({
